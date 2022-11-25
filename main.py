@@ -41,7 +41,7 @@ def home():
             f.save(os.path.join(
                 app.config["UPLOADED_PHOTOS_DEST"], filename
             ))
-            image_path = url_for('static', filename=f"img/{f.filename}")
+            image_path = url_for('static', filename=f"img/{filename}")
             colors = color_extractor.extract_colors(image_path)
             for color in colors:
                 rgb = ""
