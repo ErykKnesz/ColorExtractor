@@ -1,5 +1,3 @@
-import os
-
 import numpy as np
 from sklearn.cluster import KMeans
 from PIL import Image
@@ -12,11 +10,10 @@ class ColorExtractor:
         img_array = np.array(my_img)
         clt = KMeans(n_clusters=10)
         clt.fit(img_array.reshape(-1, 3))
-        palette = self.palette(clt)
-        print(palette)
+        palette = self._palette(clt)
         return palette[0]
 
-    def palette(self, clusters):
+    def _palette(self, clusters):
         width = 300
         palette = np.zeros((50, width, 3), np.uint8)
         steps = width / clusters.cluster_centers_.shape[0]
@@ -25,3 +22,4 @@ class ColorExtractor:
         palette = np.unique(palette, axis=1)
         palette = np.unique(palette, axis=0)
         return palette
+
