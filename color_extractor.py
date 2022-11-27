@@ -10,16 +10,6 @@ class ColorExtractor:
         img_array = np.array(my_img)
         clt = KMeans(n_clusters=10)
         clt.fit(img_array.reshape(-1, 3))
-        palette = self._palette(clt)
-        return palette[0]
+        return clt.cluster_centers_
 
-    def _palette(self, clusters):
-        width = 300
-        palette = np.zeros((50, width, 3), np.uint8)
-        steps = width / clusters.cluster_centers_.shape[0]
-        for idx, centers in enumerate(clusters.cluster_centers_):
-            palette[:, int(idx * steps):(int((idx + 1) * steps)), :] = centers
-        palette = np.unique(palette, axis=1)
-        palette = np.unique(palette, axis=0)
-        return palette
 

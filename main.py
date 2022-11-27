@@ -29,7 +29,7 @@ def home():
                 app.config["UPLOADED_PHOTOS_DEST"], filename
             ))
             image_path = url_for('static', filename=f"img/{filename}")
-            colors = color_extractor.extract_colors(image_path)
+            colors = [[int(i) for i in color] for color in color_extractor.extract_colors(image_path)]
             rgb_colors = [f"rgb({', '.join(str(i) for i in color)})"
                           for color in colors]
             hex_colors = ["#" + "".join(f"{i:02x}" for i in color)
