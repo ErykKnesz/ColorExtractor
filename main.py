@@ -29,11 +29,12 @@ def home():
                 app.config["UPLOADED_PHOTOS_DEST"], filename
             ))
             image_path = url_for('static', filename=f"img/{filename}")
-            colors = [[int(i) for i in color] for color in color_extractor.extract_colors(image_path)]
-            rgb_colors = [f"rgb({', '.join(str(i) for i in color)})"
-                          for color in colors]
-            hex_colors = ["#" + "".join(f"{i:02x}" for i in color)
-                          for color in colors]
+            extracted_colors = color_extractor.extract_colors(
+                image_path).astype(int)
+            for color in extracted_colors:
+                rgb_colors.append(f"rgb({', '.join(str(i) for i in color)})")
+                hex_colors.append("#" + "".join(f"{i:02x}" for i in color))
+
     return render_template("home.html",
                            form=form,
                            image_path=image_path,
